@@ -42,7 +42,7 @@ function run(argv) {
   const prompt = JSON.parse(testo);
   // l'ultima voce apre il file dei prompt: è qui che uno si trova quando pensa
   // "mi servirebbe un altro prompt", non nel README
-  const MODIFICA = '\u2699\uFE0E  Modifica i prompt…';
+  const MODIFICA = '\u2699\uFE0E  Gestisci i prompt…';
   const nomi = prompt.map(p => p.nome).concat([MODIFICA]);
   const app = Application.currentApplication();
   app.includeStandardAdditions = true;
@@ -112,7 +112,8 @@ if [[ -z "$ID" ]]; then
     || fallisci "prompt.json non è leggibile: controlla la sintassi in $PROMPTS"
   [[ -n "$ID" ]] || { cat "$TMP/in.txt"; exit 0; }   # annullato: selezione intatta
   if [[ "$ID" == $'\0modifica' ]]; then
-    /usr/bin/open "$PROMPTS" 2>/dev/null || /usr/bin/open -e "$PROMPTS"
+    # niente file grezzo da modificare a mano: si apre la gestione a dialoghi
+    /usr/bin/osascript -l JavaScript "$BASE/gestisci-prompt.js" "$PROMPTS" >/dev/null 2>&1
     cat "$TMP/in.txt"                                 # selezione intatta
     exit 0
   fi

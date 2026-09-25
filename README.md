@@ -37,12 +37,18 @@ Per togliere tutto: `./disinstalla.sh`
 
 ## Aggiungere i tuoi prompt
 
-**Premi ⌃⌥⌘P e scegli l'ultima voce, «Modifica i prompt…»**: si apre il file, aggiungi la tua
-voce, salvi. Compare nell'elenco al volo, senza riavviare niente e senza toccare Automator o
-le impostazioni di sistema.
+**Premi ⌃⌥⌘P e scegli l'ultima voce, «⚙ Gestisci i prompt…».** Da lì, senza toccare un file:
 
-Il file è `~/Library/Application Support/gemini-selezione/prompt.json`, se preferisci aprirlo
-per conto tuo.
+- **➕ Nuovo prompt** — dai un nome, scrivi le istruzioni in TextEdit, scegli dove deve finire
+  la risposta. Fine.
+- **Su un prompt esistente** — cambia nome, istruzioni o destinazione, duplicalo per partire da
+  uno che funziona, o eliminalo.
+
+Ogni modifica salva subito, e **prima di ogni scrittura mette da parte una copia** in
+`prompt.json.backup`: chi perde i suoi prompt per un clic sbagliato non li riscrive.
+
+Se preferisci il file, è `~/Library/Application Support/gemini-selezione/prompt.json` e ha
+questo formato:
 
 ```json
 {

@@ -51,6 +51,7 @@ fi
 echo "==> Installo script e prompt in: $PREFIX"
 mkdir -p "$PREFIX"
 install -m 755 "$HERE/gemini-selezione.sh" "$PREFIX/gemini-selezione.sh"
+install -m 644 "$HERE/gestisci-prompt.js" "$PREFIX/gestisci-prompt.js"
 
 # I prompt NON si sovrascrivono: chi ne ha aggiunti non deve perderli a ogni reinstallazione.
 if [[ -f "$PREFIX/prompt.json" ]]; then
