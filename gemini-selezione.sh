@@ -40,7 +40,10 @@ ObjC.import('Foundation');
 function run(argv) {
   const testo = $.NSString.stringWithContentsOfFileEncodingError(argv[0], $.NSUTF8StringEncoding, null).js;
   const prompt = JSON.parse(testo);
-  const nomi = prompt.map(p => p.nome);
+  // l'ultima voce apre il file dei prompt: è qui che uno si trova quando pensa
+  // "mi servirebbe un altro prompt", non nel README
+  const MODIFICA = '\u2699\uFE0E  Modifica i prompt…';
+  const nomi = prompt.map(p => p.nome).concat([MODIFICA]);
   const app = Application.currentApplication();
   app.includeStandardAdditions = true;
   app.activate();
@@ -50,6 +53,7 @@ function run(argv) {
     okButtonName: 'Applica',
   });
   if (scelta === false) return '';                      // annullato
+  if (scelta[0] === MODIFICA) return '\u0000modifica';
   return prompt[nomi.indexOf(scelta[0])].id;
 }
 JS
@@ -105,8 +109,13 @@ ID=""
 # interfaccia da scrivere, e se l'utente annulla la selezione resta intatta.
 if [[ -z "$ID" ]]; then
   ID="$(/usr/bin/osascript -l JavaScript "$TMP/scegli.js" "$PROMPTS" 2>"$TMP/err.txt")" \
-    || fallisci "Non riesco a mostrare l'elenco dei prompt"
+    || fallisci "prompt.json non è leggibile: controlla la sintassi in $PROMPTS"
   [[ -n "$ID" ]] || { cat "$TMP/in.txt"; exit 0; }   # annullato: selezione intatta
+  if [[ "$ID" == $'\0modifica' ]]; then
+    /usr/bin/open "$PROMPTS" 2>/dev/null || /usr/bin/open -e "$PROMPTS"
+    cat "$TMP/in.txt"                                 # selezione intatta
+    exit 0
+  fi
 fi
 
 # --- prepara la richiesta, e scopri dove va la risposta ---

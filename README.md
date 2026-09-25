@@ -35,10 +35,14 @@ GEMINI_OP_REF='op://<vault>/<item>/<campo>' ./install.sh   # da 1Password
 
 Per togliere tutto: `./disinstalla.sh`
 
-## I prompt
+## Aggiungere i tuoi prompt
 
-Stanno in `~/Library/Application Support/gemini-selezione/prompt.json`. Per aggiungerne uno
-scrivi lì: compare nell'elenco al volo, senza toccare Automator né le impostazioni di sistema.
+**Premi ⌃⌥⌘P e scegli l'ultima voce, «Modifica i prompt…»**: si apre il file, aggiungi la tua
+voce, salvi. Compare nell'elenco al volo, senza riavviare niente e senza toccare Automator o
+le impostazioni di sistema.
+
+Il file è `~/Library/Application Support/gemini-selezione/prompt.json`, se preferisci aprirlo
+per conto tuo.
 
 ```json
 {
@@ -69,6 +73,9 @@ modalità sola renderebbe fastidiosa metà dei prompt.
 
 Un `output` scritto male degrada a `finestra`: un refuso nel file dei prompt non deve poter
 sovrascrivere quello che avevi selezionato.
+
+Se il JSON ha un errore di sintassi, la selezione resta intatta e una notifica ti dice dove
+guardare: non si perde niente per una virgola di troppo.
 
 Di serie ce ne sono sette: traduci o correggi, traduci in italiano, rendi più scorrevole, rendi
 formale, riassumi in punti, scrivi un'email con questi dati, spiega questo testo. Sono scritti
